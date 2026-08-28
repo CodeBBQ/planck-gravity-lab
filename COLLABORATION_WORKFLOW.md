@@ -362,7 +362,7 @@ A rejection should state:
 
 Do not delete rejected reasoning merely to keep the repository clean. Mark it clearly as rejected/superseded and keep it discoverable without presenting it as accepted state.
 
-Exact status/identifier conventions are finalized by bootstrap issue #5.
+Exact claim/calculation/review/candidate status and identifier conventions are defined in `PROVENANCE_WORKFLOW.md`. Worker/campaign/decision lifecycle conventions are defined in `ORCHESTRATION_MODEL.md` and `orchestration/README.md`.
 
 ## 9. Merge rules by work type
 
@@ -380,8 +380,6 @@ May use only research state whose relevant disputes and verification requirement
 
 ## 10. Bootstrap boundary
 
-This collaboration model defines role relationships. Bootstrap issue #4 must now turn each role into a dedicated `agents/<role>.md` instruction file with an exact fresh-chat startup list, write scope, inputs, outputs, and definition of done.
+The collaboration model is implemented together with the six role files in `agents/`, the provenance workflow in `PROVENANCE_WORKFLOW.md`, and the process orchestration layer in `ORCHESTRATION_MODEL.md` plus `orchestration/`.
 
-Bootstrap issue #5 must formalize claim IDs, calculation/review links, verification states, and provenance mechanics.
-
-Substantive Planck-gravity research remains NO-GO until issue #6 validates the full fresh-agent workflow.
+The remaining research-start gate is the fresh-system readiness audit in issue #6. Until that audit returns GO on the accepted `main` state, substantive Planck-gravity research remains NO-GO.
