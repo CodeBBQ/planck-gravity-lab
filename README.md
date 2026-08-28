@@ -5,7 +5,7 @@
 
 This is a multi-session collaborative research project. The Git repository is the shared scientific memory; chat history is not authoritative.
 
-> **Bootstrap status:** architecture, collaboration, per-agent instructions, and provenance mechanics are defined. Substantive research remains **NO-GO** only until the fresh-agent readiness audit (#6) returns GO.
+> **Bootstrap status:** architecture, collaboration, agent roles, provenance, and orchestration semantics are defined. Substantive research remains **NO-GO** until worker-registry/prompt implementation (#19), moderator scheduling/convergence implementation (#20), and the final fresh-system readiness audit (#6) are complete.
 
 ## Authoritative project documents
 
@@ -13,7 +13,8 @@ This is a multi-session collaborative research project. The Git repository is th
 - `LITERATURE_RULES.md` — source access and evidence classification.
 - `REPOSITORY_ARCHITECTURE.md` — repository authority/readiness model.
 - `COLLABORATION_WORKFLOW.md` — roles, handoffs, independence, reviews and branch ownership.
-- `PROVENANCE_WORKFLOW.md` — stable IDs, claim lifecycle, cross-links, contradiction handling.
+- `PROVENANCE_WORKFLOW.md` — stable scientific IDs, claim lifecycle, cross-links, contradiction handling.
+- `ORCHESTRATION_MODEL.md` — campaigns, workers, moderator authority, dependencies, concurrency, and stopping rules.
 - `agents/README.md` — canonical fresh-chat bootstrap and role selection.
 - `agents/<role>.md` — role-specific operating instructions.
 
@@ -32,6 +33,8 @@ papers/        local git-ignored full-text cache
 agents/        fresh-chat role instructions
 ```
 
+Issues #19 and #20 will add the durable `orchestration/` worker/campaign registry and moderator scheduling implementation.
+
 ## Evidence and provenance
 
 | Code | Meaning | Final design? |
@@ -43,7 +46,7 @@ agents/        fresh-chat role instructions
 
 Evidence code is separate from project verification status: `unverified`, `verified`, `challenged`, `superseded`, or `rejected`.
 
-Stable IDs use `CLM-*` for claims, `CAL-*` for calculations, `REV-*` for reviews/disputes, and `CAN-*` for candidates.
+Stable scientific IDs use `CLM-*` for claims, `CAL-*` for calculations, `REV-*` for reviews/disputes, and `CAN-*` for candidates.
 
 ```text
 open source → verified CLM → CAL → approach/candidate → independent verification/review → synthesis
@@ -51,11 +54,19 @@ open source → verified CLM → CAL → approach/candidate → independent veri
 
 See `PROVENANCE_WORKFLOW.md` for the exact conventions. Decisive final-design statements require verified E1/E2 inputs and a complete traceable chain.
 
-## Collaboration
+## Collaboration and orchestration
 
-The roles are foundations researcher, literature scout, experimental-approach researcher, numerical verifier, adversarial reviewer, and synthesis researcher. See `COLLABORATION_WORKFLOW.md` and `agents/README.md`.
+The research roles are foundations researcher, literature scout, experimental-approach researcher, numerical verifier, adversarial reviewer, and synthesis researcher. `COLLABORATION_WORKFLOW.md` defines how those roles interact.
 
-For decisive scientific results, the original researcher must not also be the independent numerical verifier or final adversarial reviewer of that same result. Negative and rejected results are valid preserved outputs.
+`ORCHESTRATION_MODEL.md` adds a process layer:
+
+```text
+campaign → moderator decision → worker specification → agent executes worker → repository handoff → moderator re-evaluates
+```
+
+An **agent** is a reusable role. A **worker** is one concrete execution of that role. A **campaign** is a bounded research objective. The **moderator** decides what worker should exist next, but is not a scientific authority.
+
+For decisive scientific results, the original researcher must not also be the independent numerical verifier or final adversarial reviewer of that same result. Parallelism must be justified as orthogonal work or deliberate independent replication; arbitrary duplicate workers should not be launched.
 
 ## Git workflow
 
@@ -71,15 +82,15 @@ One scoped task normally owns one branch. Parallel branches may disagree. `main`
 
 ## Start here if you are an AI research session
 
-The canonical startup protocol is `agents/README.md`. Before work:
+Before any bootstrap/research work:
 
 1. read this README;
 2. read `PROJECT_RULES.md` and `LITERATURE_RULES.md`;
-3. read `REPOSITORY_ARCHITECTURE.md`, `COLLABORATION_WORKFLOW.md`, and `PROVENANCE_WORKFLOW.md`;
-4. select the assigned primary role and read its `agents/<role>.md` file;
+3. read `REPOSITORY_ARCHITECTURE.md`, `COLLABORATION_WORKFLOW.md`, `PROVENANCE_WORKFLOW.md`, and `ORCHESTRATION_MODEL.md`;
+4. if executing scientific work, select the assigned primary role and read its `agents/<role>.md` file;
 5. read relevant accepted definitions;
 6. inspect the assigned issue/task, branch/base, and existing files in your write area;
-7. perform only the assigned role and leave a repository-based handoff.
+7. perform only the assigned role/process task and leave a repository-based handoff.
 
 Do not rely on previous chat history. Do **not** begin substantive Planck-gravity research until bootstrap issue #6 returns GO.
 
@@ -91,4 +102,5 @@ Do not rely on previous chat history. Do **not** begin substantive Planck-gravit
 - equate sub-Planck parameter/displacement sensitivity with probing Planck-scale physics;
 - treat publication/arXiv presence as proof of assumptions;
 - call a signal "too small" without quantifying the gap;
-- allow speculative physics or undemonstrated technology to support final experimental designs.
+- allow speculative physics or undemonstrated technology to support final experimental designs;
+- spawn workers merely to increase parallelism or worker count.
