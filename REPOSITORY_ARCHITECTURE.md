@@ -1,172 +1,107 @@
-# Repository Architecture and Research-Readiness Audit
+# Repository Architecture and Research-Readiness State
 
-Status: **Bootstrap phase — structure and collaboration model accepted; per-agent instructions, provenance mechanics, and fresh-agent validation remain before substantive research.**
+Status: **Bootstrap implementation complete; final fresh-system readiness audit (#6) remains the research-start gate.**
 
-This document records the outcome of the first repository audit. It is intentionally about structure, authority, navigation, and research readiness; it does not evaluate any Planck-gravity experimental approach.
+This document records the repository authority model and current architecture. It does not evaluate any Planck-gravity experimental approach.
 
 ## 1. Architectural assessment
 
-The repository already has the right major separation of concerns:
+The repository separates scientific rules, evidence, calculations, exploratory research, review, synthesis, worker roles, and orchestration state:
 
 - `PROJECT_RULES.md` — authoritative scientific, mathematical, and epistemic constraints.
-- `LITERATURE_RULES.md` — authoritative source-access and evidence-classification rules.
-- `REPOSITORY_ARCHITECTURE.md` — authority model and bootstrap/readiness state.
+- `LITERATURE_RULES.md` — source-access and evidence-classification rules.
 - `COLLABORATION_WORKFLOW.md` — role boundaries, handoffs, independence, branch ownership, review and rejection paths.
-- `definitions/` — shared vocabulary, Planck-scale definitions, and comparison concepts.
-- `literature/` — bibliography, reading queue, and evidence/claim records.
-- `calculations/` — reproducible numerical work and tests.
-- `approaches/` — structured analysis of broad experimental routes; templates are not conclusions.
-- `candidates/` — fully developed experimental proposals that survive earlier analysis.
-- `reviews/` — adversarial checks, dimensional checks, and unresolved disputes.
-- `synthesis/` — comparison of surviving candidates and final assessment.
-- `prompts/` — reusable task prompts; prompts are not authoritative scientific memory.
-- `papers/` — local, git-ignored full-text cache; retrieval metadata belongs in `literature/`.
+- `PROVENANCE_WORKFLOW.md` — stable scientific IDs and claim/calculation/review provenance.
+- `ORCHESTRATION_MODEL.md` — campaigns, workers, moderator authority, dependencies, concurrency, and stopping rules.
+- `agents/` — six reusable scientific worker-role specifications plus fresh-worker bootstrap.
+- `orchestration/` — durable campaign, worker, moderator-decision memory, templates, registry, and moderator protocol.
+- `definitions/`, `literature/`, `calculations/`, `approaches/`, `candidates/`, `reviews/`, `synthesis/` — scientific state from shared definitions through reviewed synthesis.
+- `prompts/` — reusable non-authoritative prompt material.
+- `papers/` — local git-ignored full-text cache.
 
-No major directory reorganization is needed before research. The current structure supports a clean provenance path and separates exploratory analysis from accepted synthesis.
+No major directory reorganization is required before research. `main` is the conservative accepted shared state.
 
 ## 2. Authority model
 
-Repository authority should be interpreted as follows:
+1. Global scientific rules live in `PROJECT_RULES.md` and `LITERATURE_RULES.md`.
+2. Collaboration and scientific-role independence live in `COLLABORATION_WORKFLOW.md`.
+3. Scientific provenance semantics live in `PROVENANCE_WORKFLOW.md`.
+4. Process orchestration semantics live in `ORCHESTRATION_MODEL.md`, `orchestration/README.md`, and `orchestration/MODERATOR_PROTOCOL.md`.
+5. `definitions/`, verified `literature/claims/`, reproducible `calculations/`, reviewed `approaches/`/`candidates/`, and `reviews/` provide scientific state.
+6. `synthesis/` is downstream and may not invent unsupported decisive facts.
+7. `CMP-*`, `MOD-*`, and `WRK-*` are process provenance only; `CLM-*`, `CAL-*`, `REV-*`, and `CAN-*` are scientific provenance.
+8. GitHub issues, prompts, and chat history may coordinate work but must not be the sole location of an essential scientific or process rule.
 
-1. `PROJECT_RULES.md` and `LITERATURE_RULES.md` are global normative rules.
-2. `COLLABORATION_WORKFLOW.md` is authoritative for how independent agents collaborate and review one another.
-3. `definitions/` contains shared scientific definitions and metrics accepted into repository state.
-4. `literature/claims/` and `calculations/` contain evidence and reproducible derivations supporting research conclusions.
-5. `approaches/` contains approach-level research state.
-6. `candidates/` contains stronger proposals assembled from accepted evidence and calculations.
-7. `reviews/` contains challenges, disputes, and verification records.
-8. `synthesis/` is downstream of the above and must not become an independent source of unsupported facts.
-9. GitHub issues, chat history, and prompts may coordinate work but must not be the only location of any rule, scientific claim, or accepted conclusion.
+## 3. Fresh-session recoverability
 
-`main` should represent the accepted shared research state. Exploratory or disputed work belongs on task branches until merge criteria are satisfied.
+A fresh session should recover the system from repository state alone:
 
-## 3. Fresh-chat recoverability audit
+| Required context | Current location |
+|---|---|
+| Scientific goal and research-start gate | `README.md` |
+| Scientific constraints | `PROJECT_RULES.md` |
+| Literature/evidence rules | `LITERATURE_RULES.md` |
+| Collaboration independence | `COLLABORATION_WORKFLOW.md` |
+| Scientific provenance | `PROVENANCE_WORKFLOW.md` |
+| Orchestration semantics | `ORCHESTRATION_MODEL.md` |
+| Moderator startup and scheduling | `orchestration/README.md`, `orchestration/MODERATOR_PROTOCOL.md` |
+| Campaign/worker/decision state | `orchestration/registry.yaml`, `orchestration/{campaigns,workers,decisions}/` |
+| Scientific worker roles | `agents/README.md`, `agents/*.md` |
 
-A completely fresh chat can now recover the project-level collaboration context from the repository:
+## 4. Canonical startup paths
 
-| Required context | Current location | Audit result |
-|---|---|---|
-| Scientific goal | `README.md` | Present |
-| Non-speculative constraints | `PROJECT_RULES.md`, `README.md` | Present |
-| Literature/access rules | `LITERATURE_RULES.md` | Present |
-| Evidence classes | `LITERATURE_RULES.md`, `README.md` | Present |
-| Calculation standards | `PROJECT_RULES.md`, `calculations/README.md` | Present |
-| Conceptual distinctions | `PROJECT_RULES.md`, `definitions/` | Present |
-| Git/branch model | `README.md`, `COLLABORATION_WORKFLOW.md` | Present |
-| Conflict/rejection handling | `PROJECT_RULES.md`, `COLLABORATION_WORKFLOW.md`, `reviews/` | Present |
-| Agent handoffs and independence | `COLLABORATION_WORKFLOW.md` | Present |
-| Role-specific startup instructions | — | **Missing; deferred to bootstrap issue #4** |
-| Claim lifecycle / verification states | Partial in `LITERATURE_RULES.md` | **Needs hardening in bootstrap issue #5** |
-| End-to-end fresh-agent validation | — | **Deferred to bootstrap issue #6** |
+### Moderator / research coordinator
 
-The repository is structurally and collaboratively coherent but **not yet ready for substantive multi-agent research**.
+Follow `README.md` → moderator start path, then read the global rules, orchestration documents, registry, relevant process records, and accepted scientific state. The moderator controls process progression but is not a scientific authority.
 
-## 4. Mandatory startup path during bootstrap
+### Worker
 
-Until the per-agent system is completed, a fresh chat must read in this order:
+Follow `README.md`, the assigned `WRK-*` prompt/record, `agents/README.md`, and the assigned `agents/<role>.md`. Respect scope, dependencies, independence exclusions, branch/write scope, outputs, completion criteria, and handoff.
 
-1. `README.md`
-2. `PROJECT_RULES.md`
-3. `LITERATURE_RULES.md`
-4. `REPOSITORY_ARCHITECTURE.md`
-5. `COLLABORATION_WORKFLOW.md`
-6. `definitions/README.md`
-7. relevant currently accepted files in `definitions/`
-8. the GitHub issue defining the assigned task
-9. all existing files in the repository area that task may modify
-
-After bootstrap issue #4, this list should be superseded by the canonical per-agent startup protocol and agent file.
+No prior chat history is authoritative.
 
 ## 5. Scientific data flow
 
-The intended scientific information flow is:
-
 ```text
-open literature / authoritative source
-              |
-              v
-      literature claim record
-              |
-              v
- reproducible derivation/calculation
-              |
-              v
-       experimental approach
-              |
-        survives review?
-          /         \
-        no           yes
-        |             |
-  preserved/rejected  v
-                  candidate experiment
-                        |
-                  adversarial review
-                        |
-                        v
-                     synthesis
+open source
+  -> verified CLM
+  -> CAL
+  -> approach/candidate
+  -> independent verification/review (REV)
+  -> synthesis
 ```
 
-The detailed role-to-role workflow, including loops, independent verification, and rejection handling, is defined in `COLLABORATION_WORKFLOW.md`.
+Process records may point into this chain but never replace evidence.
 
-## 6. Structural strengths
+## 6. Bootstrap implementation status
 
-The audit found the following design choices worth preserving:
+Completed and merged into `main` before issue #6:
 
-- Global scientific rules are centralized rather than duplicated across approach templates.
-- The evidence hierarchy explicitly prevents E3/E4 assumptions from silently entering final designs.
-- Literature access constraints are explicit and compatible with open arXiv/institutional workflows.
-- `approaches/` files are clearly labelled as research state rather than accepted final conclusions.
-- Candidate and synthesis layers are separated, reducing premature convergence.
-- Adversarial review and independent numerical verification have explicit roles.
-- Reproducible calculations have a dedicated location rather than living only in prose.
-- PDFs are not intended for normal Git history; source identifiers remain the reproducibility mechanism.
+- #2 repository architecture audit;
+- #3 collaboration model;
+- #4 per-agent files and fresh-worker bootstrap;
+- #5 evidence/provenance hardening;
+- #18 orchestration architecture;
+- #19 worker/campaign registry and prompt contract;
+- #20 moderator scheduling/convergence protocol;
+- pre-audit top-level moderator navigation integration.
 
-## 7. Bootstrap status
+The remaining gate is #6: an end-to-end fresh-system readiness audit. Until #6 returns GO, substantive Planck-gravity research remains NO-GO.
 
-### Completed
+## 7. Preserved architectural decisions
 
-- **Issue #2 — repository architecture:** accepted.
-- **Issue #3 — collaboration model:** role boundaries, handoffs, independence, branch ownership, disagreement, rejection, and merge expectations defined in `COLLABORATION_WORKFLOW.md`.
+- Keep the current top-level research directories.
+- Keep global rules centralized rather than copied into every prompt.
+- Keep prompts non-authoritative.
+- Keep `main` conservative.
+- Preserve rejected, challenged, superseded, failed, and negative results rather than deleting history.
+- Require independent verification/review for decisive scientific outputs.
+- Use lightweight Markdown/YAML/BibTeX/Python/Git rather than a database unless scale later justifies one.
 
-### Remaining blockers
-
-#### Issue #4 — per-agent files
-Create one durable instruction file per role and a canonical fresh-chat startup protocol. Every new chat must be able to discover its required context from the repo alone.
-
-#### Issue #5 — evidence/provenance hardening
-Define stable claim identifiers, verification-state transitions, contradiction handling, links from claims to calculations, and downstream provenance.
-
-#### Issue #6 — readiness dry run
-Test the system with genuinely fresh agents and issue a final GO/NO-GO decision before substantive research begins.
-
-## 8. Structural decisions resolved
-
-- **Keep the current top-level research directories.** No restructure is justified now.
-- **Keep rules centralized.** Do not copy full scientific/literature rules into every future agent file.
-- **Keep prompts non-authoritative.** A prompt can direct a task but cannot substitute for repository-resident rules or accepted research state.
-- **Keep `main` conservative.** Exploratory disagreement should remain visible on branches/reviews until resolved.
-- **Require independent verification for decisive results.** Original approach/calculation authors should not also perform their own final numerical/adversarial verification.
-- **Permit negative/rejected research outputs.** They remain preserved and discoverable rather than being deleted.
-- **Do not add a database yet.** Markdown, BibTeX, Python, and Git are sufficient for the current scale.
-- **Do not enable Git LFS by default.** Open-paper metadata plus a local ignored `papers/` cache is sufficient unless a later requirement justifies versioned PDFs.
-
-## 9. Unresolved decisions for later bootstrap work
-
-The following questions remain before the research-start gate:
-
-- Exact mandatory-read list and write scope for each agent file.
-- Stable naming/ID convention for claims, calculations, reviews, and candidates.
-- Verification-state vocabulary and transition rules.
-- Exact machine-readable or Markdown cross-linking convention for provenance.
-- How superseded claims are represented without being mistaken for accepted evidence.
-- Final dry-run confirmation that fresh agents follow the intended workflow without hidden chat context.
-
-## 10. Audit conclusion
+## 8. Readiness conclusion
 
 **Architecture: ACCEPTED.**
 
-**Collaboration model: ACCEPTED.**
+**Bootstrap implementation: PRESENT.**
 
-**Research readiness: NO-GO until bootstrap issues #4–#6 are completed.**
-
-The repository now contains both the necessary scientific layers and the project-level agent collaboration model. Remaining work is to instantiate role-specific instructions, formalize evidence/provenance mechanics, and validate the complete system with fresh-agent dry runs.
+**Research readiness: NO-GO until issue #6 completes its required fresh-session end-to-end acceptance tests and records GO.**
