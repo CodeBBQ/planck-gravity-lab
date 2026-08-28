@@ -1,0 +1,30 @@
+# Papers directory: store locally, never commit large PDFs
+papers/*.pdf
+papers/*.html
+papers/*.epub
+papers/*.djvu
+# Keep README
+!papers/README.md
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editor artefacts
+.DS_Store
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
