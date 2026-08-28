@@ -7,7 +7,9 @@
 
 This is a **multi-session collaborative research project**.  
 The Git repository is the shared scientific memory.  
-No chat history is preserved between sessions — everything lives here.
+No chat history is preserved between sessions — everything authoritative must live here.
+
+> **Bootstrap status:** repository architecture is accepted, but substantive research is **NO-GO** until the collaboration model, per-agent instructions, provenance workflow, and fresh-agent readiness audit are complete. See `REPOSITORY_ARCHITECTURE.md`.
 
 ---
 
@@ -26,12 +28,15 @@ experimental designs. See `PROJECT_RULES.md` and `LITERATURE_RULES.md`.
 
 ## Repository architecture
 
-```
+See `REPOSITORY_ARCHITECTURE.md` for the audited authority model, data flow, bootstrap status, and unresolved pre-research decisions.
+
+```text
 planck-gravity-lab/
 │
 ├── README.md                  ← you are here
 ├── PROJECT_RULES.md           ← mandatory rules for every session
 ├── LITERATURE_RULES.md        ← source and citation rules
+├── REPOSITORY_ARCHITECTURE.md ← audited structure, authority and readiness state
 │
 ├── definitions/               ← shared vocabulary and mathematical definitions
 │   ├── README.md
@@ -78,11 +83,13 @@ planck-gravity-lab/
 │   ├── comparison_table.md
 │   └── final_assessment.md
 │
-├── prompts/                   ← reusable prompts for AI research sessions
+├── prompts/                   ← reusable prompts; not authoritative research memory
 │   └── README.md
 │
 └── papers/                    ← local PDF storage (git-ignored; use arXiv/DOI)
 ```
+
+The planned `agents/` area is intentionally not created by the architecture audit; bootstrap issue #4 defines it after the collaboration model is settled.
 
 ---
 
@@ -101,7 +108,7 @@ See `LITERATURE_RULES.md` for the full claim record format.
 
 ## Provenance chain
 
-```
+```text
 claim
   ↓  (evidence code + source)
 derivation / calculation   (calculations/)
@@ -114,7 +121,7 @@ synthesis                  (synthesis/)
 ```
 
 Every quantitative number in a candidate experiment must be traceable back
-up this chain to a primary source.
+up this chain to a primary source. Bootstrap issue #5 will harden identifiers, verification states, and cross-links.
 
 ---
 
@@ -131,19 +138,16 @@ up this chain to a primary source.
 | Adversarial reviewer | `reviews/` |
 | Synthesis researcher | `synthesis/` |
 
-A single session may hold multiple roles but must record which role it is acting
-in at any given point.
+These role names are provisional architecture only. Bootstrap issues #3 and #4 define authoritative handoffs and per-agent instructions before research starts.
 
-### Session protocol
+### Session protocol during bootstrap
 
-1. Read the session startup checklist (below).
-2. Identify your role(s) for this session.
-3. Work in a branch (see Git workflow).
-4. Record *all* equations, assumptions, sources, numerical results, uncertainties,
-   and unresolved questions in the relevant files.
-5. Do not silently overwrite a conflicting result — preserve it and create a review
-   item in `reviews/`.
-6. Open a pull request to `main` when the work satisfies the merge criteria.
+1. Read the startup checklist below.
+2. Identify the assigned bootstrap task.
+3. Work in a task branch.
+4. Record durable decisions in the repository, not only in issue/chat text.
+5. Do not silently overwrite a conflicting result or rule.
+6. Do not begin substantive Planck-gravity research while the repository status is NO-GO.
 
 ---
 
@@ -151,11 +155,11 @@ in at any given point.
 
 ### Branch naming
 
-```
+```text
 main                    ← accepted shared research state
 research/<topic>        ← exploratory research
 literature/<topic>      ← literature survey or source assessment
-review/<topic>          ← adversarial review
+review/<topic>          ← adversarial review or governance audit
 synthesis/<topic>       ← integration and comparison
 ```
 
@@ -163,7 +167,7 @@ Do not create all branches now. Create a branch when starting a task.
 
 ### Merging into main
 
-A branch may be merged into `main` when:
+For substantive scientific work, a branch may be merged into `main` when:
 
 - All claims carry evidence codes and accessible sources.
 - All important quantitative claims are independently verified or flagged as
@@ -175,22 +179,26 @@ A branch may be merged into `main` when:
 - Any conflict with existing content has a review item in `reviews/`.
 - The numerical verifier has run `calculations/test_calculations.py` and it passes.
 
+Bootstrap issues #3–#5 may refine these criteria before research begins.
+
 ---
 
 ## Start here if you are an AI research session
 
-Read these files **before** beginning any research work:
+During the bootstrap phase, read these files **before** doing any assigned work:
 
-1. `README.md` (this file) — project overview and workflow
-2. `PROJECT_RULES.md` — mandatory scientific and mathematical rules
-3. `LITERATURE_RULES.md` — source, citation, and evidence rules
-4. `definitions/README.md` — vocabulary overview
-5. `definitions/planck_scales.md` — Planck unit definitions and values
-6. `definitions/what_counts_as_probe.md` — conceptual distinctions
-7. `definitions/common_metrics.md` — how to measure "proximity to Planck scale"
-8. The specific `approaches/` file for your topic (if applicable)
+1. `README.md` (this file)
+2. `PROJECT_RULES.md`
+3. `LITERATURE_RULES.md`
+4. `REPOSITORY_ARCHITECTURE.md`
+5. `definitions/README.md`
+6. all currently accepted files in `definitions/`
+7. the GitHub issue defining your task
+8. all existing files in the repository area your task may modify
 
-Do **not** begin writing conclusions before reading all of the above.
+After bootstrap issue #4, the canonical startup list will additionally require the selected per-agent instruction file.
+
+Do **not** begin substantive Planck-gravity research until the final fresh-agent readiness audit in bootstrap issue #6 returns GO.
 
 ---
 
@@ -199,7 +207,6 @@ Do **not** begin writing conclusions before reading all of the above.
 - It does not choose a winning experiment prematurely.
 - It does not fabricate citations or invent plausible-sounding references.
 - It does not assume that quantum sensitivity implies sensitivity to quantum gravity.
-- It does not treat an arXiv preprint as establishing the correctness of its
-  own assumptions.
+- It does not treat an arXiv preprint as establishing the correctness of its own assumptions.
 - It does not conclude that a signal is "too small" without quantifying the gap.
-
+- It does not rely on previous chat history for authoritative scientific or workflow context.
