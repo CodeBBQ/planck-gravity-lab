@@ -1,121 +1,82 @@
 # Literature Rules — QuantumGravity Research Project
 
-These rules govern every source used in this repository.
-
----
+These rules govern every source used in this repository. Exact IDs, verification states, and cross-link conventions are defined in `PROVENANCE_WORKFLOW.md`.
 
 ## 1. Access policy
 
-The project owner has **no institutional paywall access**.  
-Every important quantitative claim must therefore have a **legally accessible
-full-text source**.
+The project owner has no institutional paywall access. Every important quantitative claim must therefore have a legally accessible full-text source.
 
-A paywalled journal reference may be recorded as supplementary context but
-**cannot be the sole evidence** for an important claim.
+A paywalled journal reference may be recorded as supplementary metadata but cannot be the sole evidence for an important claim.
 
----
+## 2. Source preference
 
-## 2. Source preference order
-
-When multiple sources exist for a claim, prefer:
-
-1. Open primary experimental paper (open-access journal)
-2. arXiv manuscript corresponding to a published paper
-3. Open-access journal article (DOAJ, PubMed Central, etc.)
-4. Collaboration or institutional repository
-5. Author manuscript on a personal/institutional webpage
-6. Authoritative technical documentation (e.g., NIST, CODATA, instrument manuals)
-   where appropriate for technical specifications
-
----
+Prefer, in order where appropriate:
+1. open primary experimental paper;
+2. arXiv manuscript corresponding to a published paper;
+3. open-access journal article;
+4. collaboration/institutional repository;
+5. author manuscript;
+6. authoritative technical documentation for technical specifications.
 
 ## 3. Evidence classification
 
-Every recorded claim must carry one of the following codes:
-
 | Code | Meaning |
-|------|---------|
-| **E1** | Directly demonstrated experimental result |
-| **E2** | Established physical theory or derivation |
-| **E3** | Proposed but not yet demonstrated technique or performance figure |
-| **E4** | Speculative or model-dependent physics |
+|---|---|
+| E1 | Directly demonstrated experimental result |
+| E2 | Established physical theory or derivation |
+| E3 | Proposed but not yet demonstrated technique/performance |
+| E4 | Speculative/model-dependent physics |
 
-### Rules by code
+Final experimental designs may depend only on E1/E2. E3 may be investigated but remains undemonstrated. E4 is context only and cannot be assumed in decisive candidate calculations.
 
-- **Final experimental designs** may depend only on **E1** and **E2** evidence.
-- **E3** claims may be investigated but must remain explicitly marked as
-  undemonstrated.
-- **E4** claims may provide motivation or context but **cannot be assumed** in any
-  quantitative analysis contributing to a candidate experiment.
+ArXiv presence establishes only that authors reported/proposed something. It does not establish correctness or demonstration.
 
-### Important note on arXiv
+## 4. Claim records
 
-An arXiv preprint establishes that the authors *proposed or reported* something.
-Its presence on arXiv **does not** establish that its assumptions are correct,
-that its conclusions have been verified, or that the claimed performance has been
-demonstrated. Assess arXiv papers as E1, E2, E3, or E4 based on their content,
-not their existence.
+Every important claim receives a stable `CLM-*` ID and lives in `literature/claims/`. Use `literature/claims/TEMPLATE.md` and `PROVENANCE_WORKFLOW.md`.
 
----
+Required information includes:
+- precise claim;
+- numerical value/units when applicable;
+- conditions/scope;
+- evidence code;
+- project verification status;
+- BibTeX source key;
+- legally accessible full-text route;
+- arXiv ID/DOI where available;
+- exact section/equation/figure/table;
+- verifier;
+- downstream users;
+- supersession/caveats.
 
-## 4. Claim record format
+## 5. Verification status
 
-For every important claim, record a structured entry in
-`literature/claims/` using the template below.
-Prefer machine-readable Markdown tables or YAML front-matter.
+Claim verification status is separate from evidence class:
 
-### Required fields
+`unverified | verified | challenged | superseded | rejected`
 
-```
-claim:          (one sentence description)
-value:          (numerical value with units, if applicable)
-conditions:     (experimental or theoretical conditions under which the value holds)
-source:         (full bibliographic reference)
-arxiv_id:       (arXiv:XXXX.XXXXX or "none")
-doi:            (10.XXXX/... or "none")
-location:       (equation / figure / table / section number in the source)
-evidence_code:  (E1 / E2 / E3 / E4)
-verified:       (yes / no / partial — did we independently check this?)
-notes:          (optional — caveats, conditions of applicability, etc.)
-```
+Only `verified` E1/E2 claims may support decisive final-design statements. Challenged claims cannot be used decisively until resolved. Superseded/rejected claims remain preserved for provenance.
 
----
+## 6. Primary-literature preference
 
-## 5. Primary literature preference
+Experimental performance numbers should come from primary literature whenever possible. Reviews may provide context/pointers but must not be the sole source for a decisive demonstrated-performance claim.
 
-Experimental performance numbers (noise floors, sensitivities, demonstrated
-measurement precisions) must come from **primary literature** whenever possible.
+## 7. Contradictory evidence
 
-Review articles may provide context and pointers but must not be the sole source
-for a performance claim used in a candidate experiment.
+Do not silently replace conflicting values. Create separate claim IDs, record differing conditions/methods, and create a `REV-*` record if the discrepancy matters downstream. A review may determine that both are valid under different conditions, one supersedes/rejects another, or the conflict remains unresolved.
 
----
+## 8. Bibliography relationship
 
-## 6. Papers storage convention
+`literature/library.bib` stores bibliographic metadata. Claim records refer to BibTeX entries by `source_key` and store the claim-specific evidence location, value, conditions, classification, verification state, and downstream use.
 
-Do **not** commit large PDFs to normal Git history.
+## 9. Papers storage
 
-- Store papers locally in a `papers/` directory (see `.gitignore` — this directory
-  is excluded from Git).
-- Record papers in `literature/library.bib` (BibTeX) so they can be retrieved
-  reproducibly using arXiv IDs, DOIs, or institutional URLs.
-- In every claim record, provide sufficient metadata (arXiv ID and/or DOI) for
-  any contributor to retrieve the full text independently.
+Do not commit large PDFs to normal Git history. Keep local copies under `papers/` and record reproducible retrieval metadata in `literature/library.bib` and claim records.
 
----
+## 10. Reading queue
 
-## 7. Reading queue
+Unassessed papers belong in `literature/reading_queue.md`. After assessment, add legitimate bibliographic metadata to `library.bib` and create claim records for evidence actually used.
 
-Papers that should be read but have not yet been assessed go in
-`literature/reading_queue.md`.  
-Move assessed papers from the queue to `literature/library.bib` and create the
-corresponding claim records in `literature/claims/`.
+## 11. Fabrication prohibition
 
----
-
-## 8. Fabrication prohibition
-
-**Never fabricate citations.**  
-Never create realistic-looking placeholder references with invented author names,
-journal names, volume numbers, or arXiv IDs.  
-Clearly marked `TODO` placeholders are acceptable; fabricated citations are not.
+Never fabricate citations, author names, journal data, DOIs, arXiv IDs, or realistic-looking experimental values. Clearly marked TODO/non-scientific placeholders are acceptable for templates only.

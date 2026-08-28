@@ -2,40 +2,50 @@
 
 This directory contains reproducible numerical calculations for the project.
 
-## Files
+## Core files
 
 | File | Purpose |
-|------|---------|
-| `constants.py` | Planck units computed from CODATA fundamental constants |
-| `scaling_relations.py` | Scaling laws and orders-of-magnitude metrics |
-| `test_calculations.py` | Automated tests verifying constants and scaling relations |
+|---|---|
+| `constants.py` | Planck units computed from authoritative constants |
+| `scaling_relations.py` | Shared scaling laws and orders-of-magnitude metrics |
+| `test_calculations.py` | Automated tests for shared calculations |
 
-## Running the calculations
+## Provenance requirement
+
+Read `PROVENANCE_WORKFLOW.md`. Every important research calculation must have a stable `CAL-<topic>-NNN` ID and identify the claim IDs used as inputs.
+
+At the top of a script/notebook/calculation record, include something equivalent to:
+
+```text
+Calculation ID: CAL-example-001
+Input claims: CLM-example-001, CLM-example-002
+Outputs used by: approaches/example.md
+```
+
+A fresh numerical verifier must be able to recover the equations, units, constants, input claim IDs, and downstream output without chat history.
+
+## Running shared calculations
 
 ```bash
 python calculations/constants.py
 python calculations/scaling_relations.py
-```
-
-## Running the tests
-
-```bash
 python -m pytest calculations/test_calculations.py -v
-# or, without pytest:
-python calculations/test_calculations.py
 ```
 
 ## Principles
 
-1. Use `scipy.constants` for CODATA fundamental constants wherever possible.
-2. Every result printed to stdout must include units.
-3. Important numerical results must be reproducible here — they must not exist
-   only as prose in Markdown files.
-4. Do not build a complex software system. Keep calculations simple and readable.
+1. Use authoritative physical constants (`scipy.constants` where appropriate).
+2. Include units and perform dimensional checks.
+3. Important numerical results must be reproducible here, not only in prose.
+4. Trace source-dependent inputs to `CLM-*` IDs.
+5. Independently verify decisive calculations according to `agents/numerical_verifier.md` and `COLLABORATION_WORKFLOW.md`.
+6. Keep calculations simple and readable; do not build unnecessary infrastructure.
 
-## Adding a new calculation
+## Adding a research calculation
 
-1. Add the function to the appropriate file.
-2. Add a test in `test_calculations.py`.
-3. Record the result in the relevant approach or candidate file with a reference
-   to this directory.
+1. Assign a new `CAL-*` ID.
+2. Record input `CLM-*` IDs and assumptions.
+3. Implement the calculation transparently.
+4. Add tests/checks appropriate to its importance.
+5. Reference the `CAL-*` ID from the approach/candidate using the result.
+6. Send decisive results to an independent numerical-verifier chat.
