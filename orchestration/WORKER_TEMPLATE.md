@@ -7,6 +7,8 @@ agent: literature_scout
 status: proposed
 reason: TODO exact unresolved campaign node
 task: TODO exact scoped question
+scope: []
+non_goals: []
 spawned_by: TODO moderator decision / issue / PR
 starting_context:
   required:
@@ -30,7 +32,9 @@ branch: TODO
 write_scope: []
 required_outputs: []
 completion_criteria: []
-handoff_to: TODO
+handoff:
+  target: TODO role/process
+  required_summary: []
 scientific_inputs: []
 scientific_outputs: []
 result_refs: []
@@ -83,9 +87,9 @@ Completion criteria:
 <explicit test for done>
 
 Handoff:
-<next role/process and required summary>
+<next role/process and required durable summary fields>
 
 Do not expand the task merely because adjacent questions are interesting. If a required dependency/evidence item is missing, record the blocker instead of silently changing scope.
 ```
 
-A prompt must be specific enough that a fresh chat can execute the worker without additional verbal context.
+A prompt must be specific enough that a fresh chat can execute the worker without additional verbal context. The durable worker record must contain the same task boundaries and handoff obligations used to construct the prompt; prompt-only scope is not durable process memory.
