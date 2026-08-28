@@ -1,5 +1,7 @@
 next_worker_id: WRK-0001
 next_campaign_id: CMP-0001
+next_moderator_decision_id: MOD-0001
 
 workers: []
 campaigns: []
+moderator_decisions: []
