@@ -17,6 +17,7 @@ This is a multi-session collaborative research project. The Git repository is th
 - `ORCHESTRATION_MODEL.md` — campaigns, workers, moderator authority, dependencies, concurrency, and stopping rules.
 - `orchestration/README.md` — durable campaign/worker/decision memory and IDs.
 - `orchestration/MODERATOR_PROTOCOL.md` — how a fresh moderator decides which workers to start next and generates their prompts.
+- `orchestration/ISSUE_6_ACCEPTANCE_PROTOCOL.md` — executable multi-session acceptance protocol for the final bootstrap audit.
 - `agents/README.md` — canonical worker-role bootstrap and role selection.
 - `agents/<role>.md` — role-specific operating instructions.
 
@@ -103,6 +104,13 @@ One scoped worker/task normally owns one branch. Parallel branches may disagree.
 2. Read `agents/README.md` and the assigned `agents/<role>.md`.
 3. Respect the worker's scope, dependencies, independence restrictions, branch/write scope, completion criteria, and handoff.
 4. Write durable outputs; do not rely on previous chat history.
+
+### If you are executing bootstrap issue #6
+
+1. Read this README and issue #6.
+2. Read `orchestration/ISSUE_6_ACCEPTANCE_PROTOCOL.md`.
+3. Follow the current durable audit-run manifest and launch only the exact fresh-session prompt(s) it authorizes.
+4. Do not replace required cross-session tests with same-session simulation.
 
 Do **not** begin substantive Planck-gravity research until bootstrap issue #6 returns GO.
 
