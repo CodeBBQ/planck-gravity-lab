@@ -9,7 +9,7 @@ This is a **multi-session collaborative research project**.
 The Git repository is the shared scientific memory.  
 No chat history is preserved between sessions — everything authoritative must live here.
 
-> **Bootstrap status:** repository architecture is accepted, but substantive research is **NO-GO** until the collaboration model, per-agent instructions, provenance workflow, and fresh-agent readiness audit are complete. See `REPOSITORY_ARCHITECTURE.md`.
+> **Bootstrap status:** repository architecture and the collaboration model are accepted, but substantive research is **NO-GO** until per-agent instructions, provenance workflow, and the fresh-agent readiness audit are complete. See `REPOSITORY_ARCHITECTURE.md` and `COLLABORATION_WORKFLOW.md`.
 
 ---
 
@@ -34,62 +34,23 @@ See `REPOSITORY_ARCHITECTURE.md` for the audited authority model, data flow, boo
 planck-gravity-lab/
 │
 ├── README.md                  ← you are here
-├── PROJECT_RULES.md           ← mandatory rules for every session
-├── LITERATURE_RULES.md        ← source and citation rules
-├── REPOSITORY_ARCHITECTURE.md ← audited structure, authority and readiness state
+├── PROJECT_RULES.md           ← mandatory scientific rules
+├── LITERATURE_RULES.md        ← source and evidence rules
+├── REPOSITORY_ARCHITECTURE.md ← audited structure and authority model
+├── COLLABORATION_WORKFLOW.md  ← role boundaries, handoffs, independence and reviews
 │
 ├── definitions/               ← shared vocabulary and mathematical definitions
-│   ├── README.md
-│   ├── planck_scales.md       ← Planck units: derivations and numerical values
-│   ├── what_counts_as_probe.md← what does "probing Planck-scale physics" mean?
-│   └── common_metrics.md      ← how to quantify "proximity to Planck scale"
-│
 ├── literature/                ← bibliography and assessed claims
-│   ├── README.md
-│   ├── library.bib            ← BibTeX database
-│   ├── reading_queue.md       ← papers to be read and assessed
-│   └── claims/                ← structured claim records
-│       └── README.md
-│
-├── approaches/                ← research templates for experimental approaches
-│   ├── README.md
-│   ├── accelerators.md
-│   ├── atom_interferometry.md
-│   ├── optical_interferometry.md
-│   ├── short_range_gravity.md
-│   ├── mechanical_sensors.md
-│   ├── clocks.md
-│   ├── quantum_gravity_experiments.md
-│   ├── astrophysical_baselines.md
-│   └── strong_gravity.md
-│
-├── candidates/                ← fully developed experimental proposals
-│   ├── README.md
-│   └── TEMPLATE.md            ← required structure for a candidate experiment
-│
-├── reviews/                   ← adversarial reviews and checks
-│   ├── README.md
-│   ├── adversarial_review.md
-│   └── dimensional_checks.md
-│
 ├── calculations/              ← reproducible numerical calculations
-│   ├── README.md
-│   ├── constants.py
-│   ├── scaling_relations.py
-│   └── test_calculations.py
-│
+├── approaches/                ← experimental-route research state
+├── candidates/                ← developed experimental proposals
+├── reviews/                   ← adversarial reviews and disputes
 ├── synthesis/                 ← comparison and final assessment
-│   ├── README.md
-│   ├── comparison_table.md
-│   └── final_assessment.md
-│
 ├── prompts/                   ← reusable prompts; not authoritative research memory
-│   └── README.md
-│
 └── papers/                    ← local PDF storage (git-ignored; use arXiv/DOI)
 ```
 
-The planned `agents/` area is intentionally not created by the architecture audit; bootstrap issue #4 defines it after the collaboration model is settled.
+The planned `agents/` area is intentionally deferred to bootstrap issue #4, which converts the accepted collaboration model into role-specific startup instructions.
 
 ---
 
@@ -113,41 +74,56 @@ claim
   ↓  (evidence code + source)
 derivation / calculation   (calculations/)
   ↓
-approach template          (approaches/)
+approach                   (approaches/)
   ↓
 candidate experiment       (candidates/)
+  ↓
+review / verification      (reviews/ + calculations/)
   ↓
 synthesis                  (synthesis/)
 ```
 
-Every quantitative number in a candidate experiment must be traceable back
-up this chain to a primary source. Bootstrap issue #5 will harden identifiers, verification states, and cross-links.
+Every decisive quantitative result must be traceable back to source evidence. Bootstrap issue #5 will harden identifiers, verification states, contradiction handling, and cross-links.
 
 ---
 
 ## Collaboration workflow
 
+`COLLABORATION_WORKFLOW.md` is authoritative for how independent chats work together.
+
 ### Roles
 
-| Role | Primary files |
-|------|--------------|
-| Foundations researcher | `definitions/`, `PROJECT_RULES.md` |
-| Literature scout | `literature/` |
-| Experimental approach researcher | `approaches/` |
-| Numerical verifier | `calculations/` |
-| Adversarial reviewer | `reviews/` |
-| Synthesis researcher | `synthesis/` |
+| Role | Primary responsibility |
+|------|------------------------|
+| Foundations researcher | Definitions, physical distinctions, shared metrics |
+| Literature scout | Open sources and assessed evidence claims |
+| Experimental approach researcher | Quantitative analysis of one experimental route |
+| Numerical verifier | Independent reproduction of decisive calculations |
+| Adversarial reviewer | Attempts to falsify or weaken research conclusions |
+| Synthesis researcher | Integrates sufficiently reviewed results |
 
-These role names are provisional architecture only. Bootstrap issues #3 and #4 define authoritative handoffs and per-agent instructions before research starts.
+For decisive scientific results, the original researcher must not also act as the independent numerical verifier or final adversarial reviewer of that same result.
 
-### Session protocol during bootstrap
+### Default handoff flow
 
-1. Read the startup checklist below.
-2. Identify the assigned bootstrap task.
-3. Work in a task branch.
-4. Record durable decisions in the repository, not only in issue/chat text.
-5. Do not silently overwrite a conflicting result or rule.
-6. Do not begin substantive Planck-gravity research while the repository status is NO-GO.
+```text
+Foundations
+    ↓
+Literature / evidence
+    ↓
+Approach research ↔ Numerical verification
+    ↓
+Adversarial review
+    ├── rejected/unresolved → preserved in research + reviews
+    ↓
+Candidate experiment
+    ↓
+Candidate review / verification
+    ↓
+Synthesis
+```
+
+The flow is iterative. Negative results and rejected approaches remain valid scientific outputs.
 
 ---
 
@@ -157,29 +133,24 @@ These role names are provisional architecture only. Bootstrap issues #3 and #4 d
 
 ```text
 main                    ← accepted shared research state
-research/<topic>        ← exploratory research
-literature/<topic>      ← literature survey or source assessment
-review/<topic>          ← adversarial review or governance audit
-synthesis/<topic>       ← integration and comparison
+research/<topic>        ← approach/foundations exploratory work
+literature/<topic>      ← source discovery and claim assessment
+review/<topic>          ← numerical/adversarial verification or governance review
+synthesis/<topic>       ← integration of accepted outputs
 ```
 
-Do not create all branches now. Create a branch when starting a task.
+One scoped task should normally own one branch. Parallel branches may disagree; `main` is not an exploration scratchpad.
 
 ### Merging into main
 
-For substantive scientific work, a branch may be merged into `main` when:
+For substantive scientific work, merge requirements depend on work type and are defined in `COLLABORATION_WORKFLOW.md`. At minimum:
 
-- All claims carry evidence codes and accessible sources.
-- All important quantitative claims are independently verified or flagged as
-  unverified with a TODO.
-- No E3/E4 assumption appears in a final experimental design without explicit
-  labelling.
-- No fabricated citations are present.
-- Dimensional checks pass for all new equations.
-- Any conflict with existing content has a review item in `reviews/`.
-- The numerical verifier has run `calculations/test_calculations.py` and it passes.
-
-Bootstrap issues #3–#5 may refine these criteria before research begins.
+- claims must respect evidence/access rules,
+- important equations must be dimensionally checked,
+- decisive numerical results require independent verification before supporting a final candidate,
+- unresolved disputes must remain explicit,
+- E3/E4 assumptions cannot support final experimental designs,
+- synthesis cannot introduce unsupported decisive facts directly.
 
 ---
 
@@ -191,10 +162,11 @@ During the bootstrap phase, read these files **before** doing any assigned work:
 2. `PROJECT_RULES.md`
 3. `LITERATURE_RULES.md`
 4. `REPOSITORY_ARCHITECTURE.md`
-5. `definitions/README.md`
-6. all currently accepted files in `definitions/`
-7. the GitHub issue defining your task
-8. all existing files in the repository area your task may modify
+5. `COLLABORATION_WORKFLOW.md`
+6. `definitions/README.md`
+7. relevant currently accepted files in `definitions/`
+8. the GitHub issue defining your task
+9. all existing files in the repository area your task may modify
 
 After bootstrap issue #4, the canonical startup list will additionally require the selected per-agent instruction file.
 
