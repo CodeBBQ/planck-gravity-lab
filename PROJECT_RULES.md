@@ -148,14 +148,11 @@ A single chat may perform multiple roles for low-risk bootstrap/editorial work. 
 
 ## 10. Session startup checklist
 
-Before beginning any work, a research session must read:
+Use the role-specific startup path rather than relying on chat history:
 
-1. `README.md`
-2. `PROJECT_RULES.md` (this file)
-3. `LITERATURE_RULES.md`
-4. `REPOSITORY_ARCHITECTURE.md`
-5. `COLLABORATION_WORKFLOW.md`
-6. `definitions/README.md` and relevant accepted files in `definitions/`
-7. Any file in the area being investigated
+- **Moderator / coordinator:** follow the top-level `README.md` moderator path, including the orchestration documents and registry.
+- **Worker:** follow the top-level `README.md` worker path, the assigned durable `WRK-*` record/prompt, `agents/README.md`, and the assigned `agents/<role>.md` file.
 
-Bootstrap issue #4 will add the mandatory role-specific agent file to this list. See `README.md → "Start here if you are an AI research session"` for the canonical reading order.
+All sessions must still obey this file, `LITERATURE_RULES.md`, `REPOSITORY_ARCHITECTURE.md`, `COLLABORATION_WORKFLOW.md`, and the relevant provenance/orchestration rules identified by the canonical startup path.
+
+Do not begin substantive Planck-gravity research until the repository readiness gate in `README.md` permits it.
