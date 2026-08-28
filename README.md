@@ -5,7 +5,7 @@
 
 This is a multi-session collaborative research project. The Git repository is the shared scientific memory; chat history is not authoritative.
 
-> **Bootstrap status:** architecture, collaboration, agent roles, provenance, and orchestration semantics are defined. Substantive research remains **NO-GO** until worker-registry/prompt implementation (#19), moderator scheduling/convergence implementation (#20), and the final fresh-system readiness audit (#6) are complete.
+> **Bootstrap status:** repository architecture, collaboration, agent roles, provenance, worker/campaign memory, and moderator scheduling are implemented. Substantive research remains **NO-GO** until the final fresh-system readiness audit (#6) returns GO.
 
 ## Authoritative project documents
 
@@ -15,25 +15,26 @@ This is a multi-session collaborative research project. The Git repository is th
 - `COLLABORATION_WORKFLOW.md` — roles, handoffs, independence, reviews and branch ownership.
 - `PROVENANCE_WORKFLOW.md` — stable scientific IDs, claim lifecycle, cross-links, contradiction handling.
 - `ORCHESTRATION_MODEL.md` — campaigns, workers, moderator authority, dependencies, concurrency, and stopping rules.
-- `agents/README.md` — canonical fresh-chat bootstrap and role selection.
+- `orchestration/README.md` — durable campaign/worker/decision memory and IDs.
+- `orchestration/MODERATOR_PROTOCOL.md` — how a fresh moderator decides which workers to start next and generates their prompts.
+- `agents/README.md` — canonical worker-role bootstrap and role selection.
 - `agents/<role>.md` — role-specific operating instructions.
 
 ## Research areas
 
 ```text
-definitions/   shared definitions and metrics
-literature/    bibliography and assessed claims
-calculations/  reproducible calculations and verification
-approaches/    experimental-route research state
-candidates/    developed surviving proposals
-reviews/       adversarial reviews and disputes
-synthesis/     comparison and final assessment
-prompts/       reusable prompts; non-authoritative
-papers/        local git-ignored full-text cache
-agents/        fresh-chat role instructions
+definitions/     shared definitions and metrics
+literature/      bibliography and assessed claims
+calculations/    reproducible calculations and verification
+approaches/      experimental-route research state
+candidates/      developed surviving proposals
+reviews/         adversarial reviews and disputes
+synthesis/       comparison and final assessment
+agents/          reusable worker-role instructions
+orchestration/   campaigns, workers, moderator decisions and prompts
+prompts/         reusable non-authoritative prompt material
+papers/          local git-ignored full-text cache
 ```
-
-Issues #19 and #20 will add the durable `orchestration/` worker/campaign registry and moderator scheduling implementation.
 
 ## Evidence and provenance
 
@@ -46,53 +47,64 @@ Issues #19 and #20 will add the durable `orchestration/` worker/campaign registr
 
 Evidence code is separate from project verification status: `unverified`, `verified`, `challenged`, `superseded`, or `rejected`.
 
-Stable scientific IDs use `CLM-*` for claims, `CAL-*` for calculations, `REV-*` for reviews/disputes, and `CAN-*` for candidates.
+Stable scientific IDs use `CLM-*` for claims, `CAL-*` for calculations, `REV-*` for reviews/disputes, and `CAN-*` for candidates. Process IDs use `CMP-*`, `WRK-*`, and `MOD-*`.
 
 ```text
 open source → verified CLM → CAL → approach/candidate → independent verification/review → synthesis
 ```
 
-See `PROVENANCE_WORKFLOW.md` for the exact conventions. Decisive final-design statements require verified E1/E2 inputs and a complete traceable chain.
+Worker/campaign/decision records point into this scientific provenance chain but are not scientific evidence themselves.
 
 ## Collaboration and orchestration
 
-The research roles are foundations researcher, literature scout, experimental-approach researcher, numerical verifier, adversarial reviewer, and synthesis researcher. `COLLABORATION_WORKFLOW.md` defines how those roles interact.
+The research roles are foundations researcher, literature scout, experimental-approach researcher, numerical verifier, adversarial reviewer, and synthesis researcher. `COLLABORATION_WORKFLOW.md` defines role interaction.
 
-`ORCHESTRATION_MODEL.md` adds a process layer:
+The user-facing research loop is:
 
 ```text
-campaign → moderator decision → worker specification → agent executes worker → repository handoff → moderator re-evaluates
+user asks what to run next
+  → moderator reads repository state
+  → moderator allocates justified WRK IDs and copy-ready prompts
+  → user starts those fresh worker chats
+  → workers commit durable outputs + handoffs
+  → moderator re-reads repository state
+  → next workers / verification / review / campaign stop
 ```
 
-An **agent** is a reusable role. A **worker** is one concrete execution of that role. A **campaign** is a bounded research objective. The **moderator** decides what worker should exist next, but is not a scientific authority.
+An **agent** is a reusable role. A **worker** is one concrete execution of that role. A **campaign** is a bounded research objective. The **moderator** controls process progression but is not a scientific authority.
 
-For decisive scientific results, the original researcher must not also be the independent numerical verifier or final adversarial reviewer of that same result. Parallelism must be justified as orthogonal work or deliberate independent replication; arbitrary duplicate workers should not be launched.
+For decisive scientific results, the original researcher must not also be the independent numerical verifier or final adversarial reviewer of that result. Parallelism must be justified as orthogonal work or deliberate independent replication.
 
 ## Git workflow
 
 ```text
-main                 accepted shared research state
+main                 accepted shared research/process state
 research/<topic>     approach/foundations exploratory work
 literature/<topic>   source discovery and claim assessment
 review/<topic>       verification, adversarial review, governance
 synthesis/<topic>    integration of reviewed outputs
 ```
 
-One scoped task normally owns one branch. Parallel branches may disagree. `main` is conservative accepted state.
+One scoped worker/task normally owns one branch. Parallel branches may disagree. `main` is conservative accepted state.
 
-## Start here if you are an AI research session
+## Start here
 
-Before any bootstrap/research work:
+### If you are the moderator / coordinator
 
-1. read this README;
-2. read `PROJECT_RULES.md` and `LITERATURE_RULES.md`;
-3. read `REPOSITORY_ARCHITECTURE.md`, `COLLABORATION_WORKFLOW.md`, `PROVENANCE_WORKFLOW.md`, and `ORCHESTRATION_MODEL.md`;
-4. if executing scientific work, select the assigned primary role and read its `agents/<role>.md` file;
-5. read relevant accepted definitions;
-6. inspect the assigned issue/task, branch/base, and existing files in your write area;
-7. perform only the assigned role/process task and leave a repository-based handoff.
+1. Read this README.
+2. Read `PROJECT_RULES.md`, `LITERATURE_RULES.md`, `REPOSITORY_ARCHITECTURE.md`, `COLLABORATION_WORKFLOW.md`, `PROVENANCE_WORKFLOW.md`, and `ORCHESTRATION_MODEL.md`.
+3. Read `orchestration/README.md`, `orchestration/MODERATOR_PROTOCOL.md`, and `orchestration/registry.yaml`.
+4. Read the relevant campaign, worker, decision, and accepted scientific records.
+5. Decide what workers are justified next, persist process records, and give the user copy-ready prompts.
 
-Do not rely on previous chat history. Do **not** begin substantive Planck-gravity research until bootstrap issue #6 returns GO.
+### If you are executing a worker
+
+1. Read this README and the files required by your `WRK-*` record/prompt.
+2. Read `agents/README.md` and the assigned `agents/<role>.md`.
+3. Respect the worker's scope, dependencies, independence restrictions, branch/write scope, completion criteria, and handoff.
+4. Write durable outputs; do not rely on previous chat history.
+
+Do **not** begin substantive Planck-gravity research until bootstrap issue #6 returns GO.
 
 ## What this project does not do
 
