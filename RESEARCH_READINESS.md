@@ -2,179 +2,179 @@
 
 Final status: **NO-GO**
 
-Audited `main` commit: `c9553854ce0026bf2519cf4fba6fc55fadf20049`
+Audited `main` commit: `c72b239c2b1da92f1b610f79030e556f6a618b5e`
 
-This audit was performed as a fresh repository-first readiness audit. No substantive Planck-gravity research was performed. Only non-scientific fictional-widget content was used for orchestration scenarios.
+This is a fresh repository-first rerun of issue #6 against accepted `main` after the previous audit fixes were merged. No substantive Planck-gravity research was performed. Only the existing explicitly non-scientific fictional-widget fixture was used for process validation.
 
-## Methodology
+## Fresh-session methodology
 
-The audit began from the top-level `README.md` and issue #6, then followed the moderator startup path discovered there. The audited baseline was the exact `main` commit above. Preconditions #2, #3, #4, #5, #18, #19, #20 and the pre-audit navigation integration were confirmed present in `main` history before proceeding.
+The audit began from the top-level `README.md` and issue #6 only, then followed the moderator startup path discovered in the repository. The session read the global scientific/process rules, orchestration model, moderator protocol, registry, campaign/worker/decision templates, agent bootstrap, all six role paths, the existing issue-6 dummy fixture, and the prior readiness record only after discovering it through repository state.
 
-The audit inspected the global scientific/process rules, orchestration model, moderator protocol, registry, templates, and all six agent-role paths. An isolated dummy orchestration fixture was created under `orchestration/audit-fixtures/issue-6/`; it is intentionally not production registry state.
+The audited baseline was pinned to the exact `main` SHA above. That commit is the merge of the prior issue-6 audit PR and therefore contains the fixes that the previous report required to be rerun from a new fresh session.
 
-Two repository defects were discovered during the first fresh audit and are bootstrap blockers under issue #6. They were corrected on this audit branch, but issue #6 explicitly requires affected acceptance tests to be rerun in another genuinely fresh session after fixes are merged before GO can be declared. This session therefore remains NO-GO.
-
-In addition, the present execution environment cannot create genuinely separate fresh worker chats or a second fresh moderator chat. Static prompt/role smoke tests and repository-state simulations were performed, but they are not a valid substitute for the issue's Phase 4 and Phase 5 independence requirement. Those phases therefore remain unpassed.
+This session can inspect and mutate repository state and can simulate process records, but it cannot instantiate separate genuinely fresh child chats. Therefore issue #6 Phase 4 and Phase 5 cannot truthfully be marked PASS here. Static role/prompt/re-entry checks are recorded separately from the required live fresh-session acceptance tests.
 
 ## Preconditions
 
-| Preconditions | Result |
+| Precondition | Result |
 |---|---|
-| #2 repository architecture | PASS — merged before audited baseline |
-| #3 collaboration workflow | PASS — merged before audited baseline |
-| #4 agent protocol | PASS — merged before audited baseline |
-| #5 provenance workflow | PASS — merged before audited baseline |
-| #18 orchestration architecture | PASS — merge commit present in `main` history |
-| #19 registry/prompt contract | PASS — merge commit present in `main` history |
-| #20 moderator scheduling/convergence | PASS — merge commit present in `main` history |
-| pre-audit README navigation | PASS — audited `main` is merge commit for that integration |
-| audit run against `main` | PASS — baseline pinned to SHA above |
+| #2 repository architecture present on `main` | PASS |
+| #3 collaboration workflow present on `main` | PASS |
+| #4 six-agent bootstrap present on `main` | PASS |
+| #5 provenance workflow present on `main` | PASS |
+| #18 orchestration architecture present on `main` | PASS |
+| #19 registry/prompt contract present on `main` | PASS |
+| #20 moderator scheduling/convergence protocol present on `main` | PASS |
+| top-level README exposes moderator startup path | PASS |
+| audit pinned to accepted `main`, not an implementation branch | PASS |
+
+## Rerun of prior audit defects
+
+### AUD-6-01 — stale `REPOSITORY_ARCHITECTURE.md`
+
+**PASS on repaired `main`.**
+
+`REPOSITORY_ARCHITECTURE.md` now describes the implemented six-agent system, provenance workflow, orchestration layer, canonical moderator/worker startup paths, and the remaining issue-6 gate. The stale #4/#5 architecture claims from the previous audited baseline are gone.
+
+### AUD-6-02 — worker prompt boundaries not fully durable
+
+**PASS on repaired `main`.**
+
+`orchestration/WORKER_TEMPLATE.md` now durably stores `scope`, `non_goals`, required starting context, independence exclusions, dependencies/blockers, concurrency, branch/write scope, required outputs, completion criteria, structured handoff obligations, and scientific/process references. The template explicitly requires the durable record to contain the same task boundaries and handoff obligations as the generated prompt.
+
+The existing isolated fixture exercises these fields and remains explicitly outside production registry state.
+
+### AUD-6-03 — genuinely fresh child sessions unavailable in this execution environment
+
+**STILL UNRESOLVED AS AN AUDIT-COMPLETION BLOCKER.**
+
+This is not demonstrated to be a repository defect. It prevents truthful completion of Phase 4 and Phase 5 in this session.
+
+## New defects found in this fresh rerun
+
+### AUD-6-04 — stale worker-startup instruction in `PROJECT_RULES.md`
+
+Severity: bootstrap/cross-system consistency blocker.
+
+The audited `main` still stated that bootstrap issue #4 *will add* the mandatory role-specific agent file and referred to `README.md -> "Start here if you are an AI research session"`, a heading that no longer exists. A fresh worker reading the authoritative scientific rules therefore encounters obsolete startup guidance that contradicts the implemented role-specific system.
+
+Fix on this branch: replace the stale issue-#4 language with the current moderator/worker startup paths and readiness gate.
+
+Required rerun after merge: Phase 1, worker bootstrap portion of Phase 4, and Phase 10 in another genuinely fresh session.
+
+### AUD-6-05 — stale bootstrap boundary in `COLLABORATION_WORKFLOW.md`
+
+Severity: bootstrap/cross-system consistency blocker.
+
+The audited `main` still said issue #4 *must now* create role files and issue #5 *must* formalize provenance mechanics, even though both are already implemented and merged. Section 8 also said those conventions were merely to be finalized by #5. This contradicts accepted repository state and can make a fresh session uncertain which workflow is authoritative.
+
+Fix on this branch: point directly to `PROVENANCE_WORKFLOW.md`, `ORCHESTRATION_MODEL.md`, `orchestration/README.md`, and the implemented six-agent system; retain issue #6 as the only research-start bootstrap gate.
+
+Required rerun after merge: Phase 1 and Phase 10 in another genuinely fresh session.
 
 ## Phase results
 
 ### Phase 1 — Entry-point and moderator bootstrap
 
-**PASS with cross-system defect discovered later.**
+**FAIL due to cross-system inconsistency; direct README discovery itself passes.**
 
-Starting from `README.md`, the moderator path is discoverable without guessed filenames. It points to `ORCHESTRATION_MODEL.md`, `orchestration/README.md`, `orchestration/MODERATOR_PROTOCOL.md`, `orchestration/registry.yaml`, campaign/worker/decision records and templates. The distinction between reusable scientific agents and the moderator process role is explicit, and the moderator is explicitly not a scientific authority.
+Starting only from `README.md`, a fresh session can discover the moderator/research-coordinator interface, `ORCHESTRATION_MODEL.md`, `orchestration/README.md`, `orchestration/MODERATOR_PROTOCOL.md`, `orchestration/registry.yaml`, record/template locations, the agent/worker distinction, and the fact that the moderator is not a scientific authority.
 
-However, `REPOSITORY_ARCHITECTURE.md` was stale and still claimed that per-agent instructions and provenance mechanics remained missing. This contradicted current repository state and could mislead a fresh session. It is a cross-system consistency/bootstrap defect and contributes to the final NO-GO.
+The prior architecture defect is repaired. However, the newly found stale authoritative guidance in `PROJECT_RULES.md` and `COLLABORATION_WORKFLOW.md` means the whole bootstrap path is not internally consistent on the audited baseline. The straightforward fixes are included on this branch, but issue #6 requires a new fresh-session rerun after merge.
 
-Fix on this branch: `REPOSITORY_ARCHITECTURE.md` was refreshed to the current architecture and startup paths.
+### Phase 2 — Create a dummy campaign through the moderator
 
-### Phase 2 — Dummy campaign through moderator
+**PASS at repository-contract/static execution level; live child-session acceptance remains downstream.**
 
-**PARTIAL / NOT ACCEPTED AS END-TO-END PASS.**
+The campaign template supports bounded objective, scope, non-goals, required nodes, verification/review gates, blockers, exit criteria, worker set, scientific references, and final disposition. The worker template now durably matches its prompt contract. The isolated fixture demonstrates a bounded fictional-widget campaign, a moderator decision, justified worker batch, blocked work, and copy-ready prompt structure without using production IDs.
 
-The moderator contracts are sufficient to construct a bounded dummy campaign, explicit nodes/gates/exit criteria, a moderator decision, justified worker tasks, and copy-ready prompts. The isolated fixture demonstrates this structure.
+The user does not need to design a worker DAG manually: the moderator protocol requires mapping unmet campaign exit criteria to unresolved nodes, checking prior work/dependencies, selecting ready roles, and explaining why each worker exists.
 
-A defect was found in the production `WORKER_TEMPLATE.md`: the durable worker record did not contain explicit `scope`, `non_goals`, or a substantive durable handoff contract, although the prompt contract requires those fields. That means a generated prompt could contain task boundaries that were not fully reconstructible from durable worker state after chat replacement.
+### Phase 3 — Parallelism, dependency, and duplicate control
 
-Fix on this branch: `WORKER_TEMPLATE.md` now persists `scope`, `non_goals`, and a structured handoff contract, and states that prompt-only scope is not durable process memory.
+**PASS statically.**
 
-Because this defect was found in the first fresh audit, the affected campaign/worker-contract test must be rerun in another fresh session after merge.
-
-### Phase 3 — Parallelism, dependency, duplicate control
-
-**STATIC LOGIC PASS; fresh rerun still required.**
-
-The moderator model/protocol explicitly supports:
-
-- three orthogonal workers on distinct independent nodes;
-- deliberate independent replication with explicit contamination exclusions;
-- blocked dependency withholding;
-- duplicate suppression unless replication purpose is explicit.
-
-The isolated fixture exercises all four cases. Worker count follows task structure rather than a user-specified parallelism number.
+The protocol and fixture exercise three orthogonal workers, two deliberate independent replications with contamination exclusions, a withheld blocked dependency, and suppression of a duplicate worker lacking replication purpose. Parallel worker count follows task structure rather than a requested number.
 
 ### Phase 4 — Fresh worker execution
 
 **NOT PASSED.**
 
-All six agent files are discoverable. Representative role instructions for literature, approach, numerical verification, adversarial review, foundations, and synthesis resolve from the canonical worker bootstrap. Static prompt smoke tests show that the repository has fields for ID, campaign, role, task/reason, scope/non-goals, dependencies, exclusions, branch/write scope, outputs, completion criteria, handoff, and provenance references after the template fix.
+All six role files are discoverable and the repaired worker record/prompt contract carries the required ID, campaign, role, task/reason, scope/non-goals, dependencies, exclusions, branch/write scope, outputs, completion criteria, handoff, and provenance requirements. Static smoke coverage exists for literature scout, approach researcher, numerical verifier, adversarial reviewer, foundations researcher, and synthesis researcher.
 
-But issue #6 requires separate genuinely fresh worker sessions using only generated prompts and repository access. This audit environment cannot launch separate fresh chats. Therefore static inspection is insufficient and this phase remains unpassed.
+Issue #6 nevertheless requires separate genuinely fresh worker sessions using only generated prompts and repository access. This execution environment cannot create those sessions. In addition, the newly found `PROJECT_RULES.md` startup inconsistency must be merged and rerun before this phase could pass even in a suitable environment.
 
 ### Phase 5 — Worker completion -> moderator re-entry
 
 **NOT PASSED.**
 
-The fixture demonstrates how durable worker states and handoffs allow a replacement moderator to distinguish completed, blocked, failed, and superseded work and choose the next gate without repeating completed work.
+The isolated fixture demonstrates durable completed/blocked/failed/superseded states and a replacement-moderator decision that schedules the next enabled gate without repeating completed work. The production registry/templates are designed to preserve this state.
 
-However, issue #6 requires a new fresh moderator session with repository-only access. This session cannot instantiate a second genuinely fresh moderator. Therefore this phase remains unpassed.
+Issue #6 requires an actually new moderator session with repository-only access. This environment cannot instantiate that separate session, so simulation is not accepted as a live pass.
 
 ### Phase 6 — Failure and re-scoping
 
-**STATIC LOGIC PASS.**
+**PASS statically.**
 
-`MODERATOR_PROTOCOL.md` distinguishes environmental/process failure, missing dependency, over-broad/ambiguous tasks, unavailable evidence/input, and valid negative results. Retry is not automatic; replacement/re-scoped workers must reference prior work; negative results are preserved. The fixture exercises these cases.
+The moderator protocol distinguishes environmental/process failure, missing dependency, over-broad/ambiguous work, unavailable evidence/input, and valid negative results. Retry is not automatic; replacement workers must record what changed; negative results are preserved rather than retried to obtain a preferred outcome. The fixture covers each case.
 
 ### Phase 7 — Verification/review independence
 
-**STATIC LOGIC PASS; live fresh-session test pending.**
+**PASS at orchestration-rule level; live fresh execution pending.**
 
-The orchestration and collaboration rules require an independent numerical verifier for decisive quantitative results and adversarial review before decisive promotion. Original authors cannot serve as their own independent verifier/reviewer. Independence-sensitive workers may exclude sibling exploratory conclusions/intermediate arithmetic. The fixture exercises two independent reproductions and a separate reviewer.
+The collaboration/orchestration rules require independent numerical verification for decisive quantitative outputs and adversarial review before decisive promotion. Original authors cannot serve as their own independent verifier/reviewer, and independence-sensitive starting context can exclude sibling intermediate conclusions. The fixture exercises independent dummy reproductions and a separate reviewer.
 
-A genuinely fresh verifier/reviewer execution remains part of the unpassed Phase 4 test.
+The live fresh verifier/reviewer execution remains unpassed under Phase 4.
 
 ### Phase 8 — Convergence and stopping
 
-**STATIC LOGIC PASS.**
+**PASS statically.**
 
-The protocol requires each new worker to map to an unmet exit criterion and unresolved node, state why existing work is insufficient, be ready, produce state-changing output, and lead to an explicit next gate. It defines completed/rejected/blocked/paused dispositions and forbids endless duplicate spawning. The fixture covers successful completion and an unresolvable blocker ending.
+The moderator protocol requires each proposed worker to map to an unmet exit criterion and exact unresolved node, explain why existing work is insufficient, be ready, produce a state-changing output, and lead to an explicit next gate. It supports completed/rejected/blocked/paused outcomes and suppresses further work when no justified state-changing worker exists. The fixture contains both successful and blocked endings.
 
 ### Phase 9 — Scientific provenance integration
 
-**STATIC LOGIC PASS.**
+**PASS statically.**
 
-Process provenance (`CMP/MOD/WRK`) is explicitly separate from scientific provenance (`CLM/CAL/REV/CAN`). `PROVENANCE_WORKFLOW.md` provides traceable claim/calculation/review rules, preserves challenged/rejected/superseded records, and prevents unresolved/unverified decisive evidence from entering synthesis. The fixture uses non-scientific placeholder IDs only and does not create scientific evidence.
+Process provenance (`CMP-*`, `MOD-*`, `WRK-*`) remains separate from scientific provenance (`CLM-*`, `CAL-*`, `REV-*`, `CAN-*`). The provenance workflow preserves challenged/rejected/superseded records, requires traceable calculation inputs, and prevents unresolved/unverified decisive evidence from entering final synthesis. The dummy fixture uses only explicitly non-scientific placeholder IDs and never substitutes process IDs for evidence.
 
 A genuinely fresh numerical verifier tracing a decisive calculation remains pending under Phase 4.
 
 ### Phase 10 — Cross-system consistency
 
-**FAIL on audited baseline; fixes included on audit branch.**
+**FAIL on audited `main`; fixes included on this branch.**
 
-Checks:
+| Check | Result on audited `main` |
+|---|---|
+| README describes current bootstrap state | PASS |
+| moderator startup discoverable | PASS |
+| all six research-agent files discoverable | PASS |
+| repaired worker template matches prompt contract | PASS |
+| campaign/decision templates match moderator protocol | PASS |
+| registry fields/ID allocation align with templates | PASS |
+| lifecycle/status vocabulary is usable across documents | PASS |
+| branch/write-scope conventions align with orchestration | PASS |
+| provenance terminology is consistent | PASS except stale #5 implementation wording in collaboration document |
+| unresolved disputes have durable `reviews/` home | PASS |
+| rejected approaches/workers remain preserved | PASS |
+| no essential instruction depends on old chat history | PASS for implemented contracts |
+| authoritative startup/bootstrap wording is current everywhere | **FAIL** — `PROJECT_RULES.md` and `COLLABORATION_WORKFLOW.md` contain stale bootstrap instructions |
 
-- README describes moderator interface and research-start gate: PASS.
-- moderator startup discoverable: PASS.
-- all six research-agent files discoverable: PASS.
-- campaign/decision templates broadly match moderator protocol: PASS.
-- worker template matched prompt contract on audited baseline: **FAIL** — scope/non-goals/handoff were prompt-only rather than fully durable.
-- registry ID fields and lifecycle vocabulary: PASS at schema/document level.
-- branch/write-scope conventions compatible with orchestration: PASS.
-- provenance terminology: PASS.
-- unresolved disputes have durable `reviews/` home: PASS.
-- rejected approaches/workers are preserved: PASS.
-- no essential instruction exists only in old chats: PASS for inspected contracts.
-- architecture bootstrap status current: **FAIL** — `REPOSITORY_ARCHITECTURE.md` still described #4/#5 as missing.
+Because the audited baseline itself contains these contradictions, fixes made on this branch cannot be counted as a fresh-session pass. The affected checks must be rerun after merge.
 
-Both identified repository defects are fixed on this branch, but their acceptance tests have not been rerun from another fresh session after merge.
-
-## Defects found
-
-### AUD-6-01 — stale architecture/bootstrap state
-
-Severity: bootstrap blocker.
-
-The audited `REPOSITORY_ARCHITECTURE.md` described role-specific instructions and provenance hardening as still missing, despite #4 and #5 being merged. This violates cross-system consistency and can force a fresh session to reconcile contradictory repository instructions.
-
-Fix included: refresh architecture/readiness document to current startup/orchestration state.
-
-Required rerun: Phase 1 and Phase 10 in a new fresh session after merge.
-
-### AUD-6-02 — worker prompt boundaries not fully durable
-
-Severity: bootstrap blocker.
-
-The audited worker prompt required scope, non-goals, and a handoff description, but the durable YAML worker template did not persist explicit scope/non-goals and had only `handoff_to` rather than the required handoff content. A replacement moderator/worker could therefore lose prompt-only task boundaries.
-
-Fix included: add `scope`, `non_goals`, and structured `handoff.target` / `handoff.required_summary` fields and require record/prompt equivalence.
-
-Required rerun: Phase 2, Phase 4, Phase 5, and Phase 10 in a new fresh session after merge.
-
-### AUD-6-03 — required genuinely fresh child sessions not executable here
-
-Severity: audit-completion blocker, not currently demonstrated to be a repository defect.
-
-This execution environment cannot launch separate fresh worker chats or a second fresh moderator chat. The repository contracts can be statically inspected and simulated, but issue #6 explicitly makes fresh-session replacement part of acceptance. Those tests cannot truthfully be marked PASS in this session.
-
-Required rerun: Phase 4 and Phase 5 using actual fresh sessions after the repository fixes are merged.
-
-## Explicit checklist
+## Explicit readiness checklist
 
 | Area | Result |
 |---|---|
-| repository architecture | FAIL on baseline; fix included; fresh rerun required |
-| scientific rules | PASS |
+| repository architecture | PASS after prior fix |
+| scientific rules | FAIL only for stale startup text; scientific constraints themselves consistent |
 | evidence/provenance | PASS statically |
-| collaboration independence | PASS statically; live fresh verifier/reviewer pending |
-| all research agents | PASS discoverability/static bootstrap; live fresh worker execution pending |
-| moderator discoverability | PASS |
-| campaign creation | PARTIAL; durable-worker defect fixed; fresh rerun required |
+| collaboration independence | PASS statically; live verifier/reviewer pending |
+| all research agents | PASS discoverability/static bootstrap; live worker execution pending |
+| moderator discoverability | PASS from README |
+| campaign creation | PASS statically after prior worker-template fix |
 | worker ID/registry memory | PASS statically |
-| copy-ready worker prompts | PARTIAL; record/prompt durability defect fixed; fresh rerun required |
+| copy-ready worker prompts | PASS statically after prior fix |
 | parallelism/replication/dependency logic | PASS statically |
 | duplicate suppression | PASS statically |
 | moderator replacement/re-entry | NOT PASSED — genuine fresh moderator required |
@@ -182,21 +182,26 @@ Required rerun: Phase 4 and Phase 5 using actual fresh sessions after the reposi
 | verification/review scheduling | PASS statically; live independence execution pending |
 | convergence/stopping | PASS statically |
 | process-to-scientific provenance integration | PASS statically; live verifier trace pending |
+| cross-system bootstrap consistency | FAIL on audited baseline; fixes included; fresh rerun required |
 
-## Fixes made during this audit
+## Fixes made during this rerun
 
-1. Refreshed `REPOSITORY_ARCHITECTURE.md` so current agent/provenance/orchestration implementation and startup paths are accurately represented.
-2. Hardened `orchestration/WORKER_TEMPLATE.md` so scope, non-goals, and handoff obligations are durable rather than prompt-only.
-3. Added an explicitly isolated non-scientific audit fixture covering parallelism, replication, blocking, duplicate suppression, failure/re-scoping, independence, convergence, and provenance separation.
+1. Updated `PROJECT_RULES.md` to remove obsolete issue-#4/fictitious-heading startup guidance and point to the current moderator/worker bootstrap paths.
+2. Updated `COLLABORATION_WORKFLOW.md` to remove obsolete issue-#4/#5 implementation language and point to the implemented agent, provenance, and orchestration systems.
+3. Updated this readiness report with the new audited `main` SHA, the successful fresh rerun of the prior architecture/worker-template defects, the newly discovered defects, and the remaining live-session blockers.
+
+The existing isolated non-scientific fixture under `orchestration/audit-fixtures/issue-6/` remains sufficient for dummy process validation and is intentionally not production registry state.
 
 ## Tests rerun after fixes
 
-Within this same session, static consistency checks were repeated against the edited files. **No test is counted as the issue-mandated fresh-session rerun.** Issue #6 requires another genuinely fresh session after fixes before GO.
+Within this same session, the edited documents were checked for consistency with the top-level README, orchestration model, moderator protocol, agent bootstrap, and provenance workflow. These same-session checks are useful edit validation but **do not count as the issue-mandated fresh-session rerun** of newly discovered blockers.
+
+No separate fresh worker sessions or replacement moderator session were executed here.
 
 ## Final decision
 
 **NO-GO.**
 
-The audited `main` baseline contained two bootstrap/workflow inconsistencies, and the mandatory separate fresh-worker and fresh-moderator execution tests were not executable in this session. The fixes in this branch should be merged, then issue #6 must be rerun from a new fresh audit session. Only that later session may declare GO if the repaired repository supports the complete user -> moderator -> worker -> durable handoff -> replacement moderator loop without extra explanation or old chat context.
+This fresh rerun confirms that the two defects fixed by the previous audit are repaired on accepted `main`, but it discovered two additional stale bootstrap instructions in authoritative repository documents. Those fixes must be merged and their affected acceptance tests rerun from another genuinely fresh session. Independently, Phase 4 and Phase 5 still require actual separate fresh worker/moderator sessions rather than static simulation.
 
-No first real Planck-gravity campaign is suggested because issue #6 permits such suggestions only after GO.
+No substantive Planck-gravity research was performed, and no first real campaign is suggested because issue #6 permits that only after a valid GO.
