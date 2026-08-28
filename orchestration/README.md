@@ -9,13 +9,18 @@ orchestration/
 ├── README.md
 ├── registry.yaml
 ├── MODERATOR_PROTOCOL.md
+├── ISSUE_6_ACCEPTANCE_PROTOCOL.md
 ├── WORKER_TEMPLATE.md
 ├── CAMPAIGN_TEMPLATE.md
 ├── DECISION_TEMPLATE.md
+├── audit-fixtures/
+├── audit-runs/
 ├── workers/
 ├── campaigns/
 └── decisions/
 ```
+
+`ISSUE_6_ACCEPTANCE_PROTOCOL.md` is the executable multi-session bootstrap acceptance procedure. It keeps the issue-6 dummy fixture isolated from the production registry and defines how genuinely separate fresh sessions hand off through durable repository state.
 
 ## If you are the moderator
 
@@ -28,6 +33,8 @@ Read, in order:
 6. relevant accepted scientific state.
 
 Your normal user-facing job is to answer: **what worker(s) should be started next, why, and with which complete prompt?**
+
+For bootstrap issue #6 specifically, follow `ISSUE_6_ACCEPTANCE_PROTOCOL.md`; do not improvise a same-session substitute for its fresh-session nodes.
 
 ## Stable IDs
 
@@ -67,13 +74,17 @@ Moderator decisions are process provenance, not scientific evidence.
 
 ## Registry rule
 
-Every launched worker must appear in `registry.yaml` and have a file under `workers/`. Every campaign has a durable record under `campaigns/`. Every material scheduling batch/stop decision has a durable `MOD-*` record.
+Every launched production worker must appear in `registry.yaml` and have a file under `workers/`. Every production campaign has a durable record under `campaigns/`. Every material production scheduling batch/stop decision has a durable `MOD-*` record.
+
+Issue-6 audit-run session IDs and fixture IDs are deliberately separate and must not consume production IDs or enter `registry.yaml`.
 
 A fresh moderator must be able to reconstruct what has already been attempted and why without old chat history.
 
 ## Prompt contract
 
 Each ready worker gets a copy-ready prompt following `WORKER_TEMPLATE.md`. The prompt references authoritative repository files rather than duplicating global rules and explicitly records scope, dependencies, independence constraints, outputs, completion criteria, and handoff.
+
+Issue-6 live-test prompts are additionally stored verbatim in the active audit-run directory before the user launches them.
 
 ## Process provenance vs scientific provenance
 
