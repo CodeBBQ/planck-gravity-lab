@@ -103,8 +103,9 @@ If two sessions reach conflicting conclusions:
 
 - Preserve both conclusions in the relevant file with attribution.
 - Create a review item in `reviews/` identifying the disputed equation, assumption,
-  number, or interpretation.
-- The conflict is resolved only after adversarial review and explicit consensus.
+  number, source, or interpretation.
+- Resolve the dispute through the independent role defined in `COLLABORATION_WORKFLOW.md`.
+- An unresolved disputed claim must not be promoted into an accepted candidate or decisive synthesis conclusion.
 
 ---
 
@@ -135,12 +136,13 @@ synthesis (in synthesis/)
 | **Foundations researcher** | Maintains definitions/, verifies physical assumptions |
 | **Literature scout** | Populates literature/, verifies source accessibility |
 | **Experimental approach researcher** | Fills approach templates in approaches/ |
-| **Numerical verifier** | Writes and runs code in calculations/ |
-| **Adversarial reviewer** | Challenges claims in reviews/ |
-| **Synthesis researcher** | Integrates surviving candidates in synthesis/ |
+| **Numerical verifier** | Independently reproduces decisive calculations |
+| **Adversarial reviewer** | Attempts to falsify or weaken claims in reviews/ |
+| **Synthesis researcher** | Integrates sufficiently verified/reviewed results in synthesis/ |
 
-A single session may hold multiple roles, but must explicitly record which role
-it is acting in at any given point.
+`COLLABORATION_WORKFLOW.md` is authoritative for role boundaries, handoffs, write scopes, independence, branch ownership, rejection paths, and merge expectations.
+
+A single chat may perform multiple roles for low-risk bootstrap/editorial work. For decisive scientific results, the original researcher must not also serve as the independent numerical verifier or final adversarial reviewer of that same result.
 
 ---
 
@@ -151,8 +153,9 @@ Before beginning any work, a research session must read:
 1. `README.md`
 2. `PROJECT_RULES.md` (this file)
 3. `LITERATURE_RULES.md`
-4. `definitions/README.md` and all files in `definitions/`
-5. Any file in the area being investigated
+4. `REPOSITORY_ARCHITECTURE.md`
+5. `COLLABORATION_WORKFLOW.md`
+6. `definitions/README.md` and relevant accepted files in `definitions/`
+7. Any file in the area being investigated
 
-See `README.md → "Start here if you are an AI research session"` for the
-canonical reading list.
+Bootstrap issue #4 will add the mandatory role-specific agent file to this list. See `README.md → "Start here if you are an AI research session"` for the canonical reading order.
